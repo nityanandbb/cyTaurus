@@ -8,8 +8,8 @@ on:
         required: true
         type: choice
         options:
-        - 1
-        - 2
+          - 1
+          - 2
         labels:
           1: awsCypress-main1
           2: awsCypress-main2
@@ -18,8 +18,8 @@ jobs:
   wait-for-input:
     runs-on: ubuntu-latest
     steps:
-    - name: Wait for input
-      run: echo "Waiting for input..."
+      - name: Wait for input
+        run: echo "Waiting for input..."
 
   trigger-selected-workflow:
     needs: wait-for-input
@@ -27,35 +27,36 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+
       - name: Log: Start of Workflow
-        run: echo "🔵 [INFO] Starting the workflow..."
+        run: echo "Starting the workflow..."
+
       - name: Log: Selected Project
-        run: echo "🟢 [SUCCESS] Selected project: ${{ github.event.inputs.project }}"
+        run: echo "Selected project: ${{ github.event.inputs.project }}"
 
       - name: Trigger Cypress Tests for awsCypress-main1
         if: ${{ github.event.inputs.project == '1' }}
         run: |
-          echo "🟡 [INFO] Triggering workflow for awsCypress-main1..."
+          echo "Triggering workflow for awsCypress-main1..."
           gh workflow run cypress.yml --repo awsCypress-main1/${{ github.repository_owner }} --ref main
           if [ $? -eq 0 ]; then
-            echo "✅ [SUCCESS] Successfully triggered awsCypress-main1 workflow!"
+            echo "Successfully triggered awsCypress-main1 workflow!"
           else
-            echo "❌ [ERROR] Failed to trigger awsCypress-main1 workflow."
+            echo "Failed to trigger awsCypress-main1 workflow."
             exit 1
           fi
 
       - name: Trigger Cypress Tests for awsCypress-main2
         if: ${{ github.event.inputs.project == '2' }}
         run: |
-          echo "🟡 [INFO] Triggering workflow for awsCypress-main2..."
+          echo "Triggering workflow for awsCypress-main2..."
           gh workflow run cypress.yml --repo awsCypress-main2/${{ github.repository_owner }} --ref main
           if [ $? -eq 0 ]; then
-            echo "✅ [SUCCESS] Successfully triggered awsCypress-main2 workflow!"
+            echo "Successfully triggered awsCypress-main2 workflow!"
           else
-            echo "❌ [ERROR] Failed to trigger awsCypress-main2 workflow."
+            echo "Failed to trigger awsCypress-main2 workflow."
             exit 1
           fi
 
       - name: Log: End of Workflow
-        run: echo "🔵 [INFO] Workflow execution complete."
-        
+        run: echo "Workflow execution complete."
