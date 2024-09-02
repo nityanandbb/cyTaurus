@@ -17,34 +17,34 @@ jobs:
 
     steps:
       - name: Log: Start of Workflow
-        run: echo -e "\e[34m🔵 [INFO] Starting the workflow...\e[0m"
+        run: echo "🔵 [INFO] Starting the workflow..."
 
       - name: Log: Selected Project
-        run: echo -e "\e[32m🟢 [SUCCESS] Selected project: ${{ github.event.inputs.project }}\e[0m"
+        run: echo "🟢 [SUCCESS] Selected project: ${{ github.event.inputs.project }}"
 
       - name: Trigger Cypress Tests for awsCypress-main1
         if: ${{ github.event.inputs.project == 'awsCypress-main1' }}
         run: |
-          echo -e "\e[33m🟡 [INFO] Triggering workflow for awsCypress-main1...\e[0m"
-          gh workflow run cypress.yml --repo ${{ github.repository }} --ref main --inputs project=awsCypress-main1
+          echo "🟡 [INFO] Triggering workflow for awsCypress-main1..."
+          gh workflow run cypress.yml --repo ${{ github.repository }} --ref main
           if [ $? -eq 0 ]; then
-            echo -e "\e[32m✅ [SUCCESS] Successfully triggered awsCypress-main1 workflow!\e[0m"
+            echo "✅ [SUCCESS] Successfully triggered awsCypress-main1 workflow!"
           else
-            echo -e "\e[31m❌ [ERROR] Failed to trigger awsCypress-main1 workflow.\e[0m"
+            echo "❌ [ERROR] Failed to trigger awsCypress-main1 workflow."
             exit 1
           fi
 
       - name: Trigger Cypress Tests for awsCypress-main2
         if: ${{ github.event.inputs.project == 'awsCypress-main2' }}
         run: |
-          echo -e "\e[33m🟡 [INFO] Triggering workflow for awsCypress-main2...\e[0m"
-          gh workflow run cypress.yml --repo ${{ github.repository }} --ref main --inputs project=awsCypress-main2
+          echo "🟡 [INFO] Triggering workflow for awsCypress-main2..."
+          gh workflow run cypress.yml --repo ${{ github.repository }} --ref main
           if [ $? -eq 0 ]; then
-            echo -e "\e[32m✅ [SUCCESS] Successfully triggered awsCypress-main2 workflow!\e[0m"
+            echo "✅ [SUCCESS] Successfully triggered awsCypress-main2 workflow!"
           else
-            echo -e "\e[31m❌ [ERROR] Failed to trigger awsCypress-main2 workflow.\e[0m"
+            echo "❌ [ERROR] Failed to trigger awsCypress-main2 workflow."
             exit 1
           fi
 
       - name: Log: End of Workflow
-        run: echo -e "\e[34m🔵 [INFO] Workflow execution complete.\e[0m"
+        run: echo "🔵 [INFO] Workflow execution complete."
