@@ -26,7 +26,7 @@ jobs:
         if: ${{ github.event.inputs.project == 'awsCypress-main1' }}
         run: |
           echo -e "\e[33m🟡 [INFO] Triggering workflow for awsCypress-main1...\e[0m"
-          gh workflow run cypress.yml --repo ${{ github.repository }} --ref main
+          gh workflow run cypress.yml --repo ${{ github.repository }} --ref main --inputs project=awsCypress-main1
           if [ $? -eq 0 ]; then
             echo -e "\e[32m✅ [SUCCESS] Successfully triggered awsCypress-main1 workflow!\e[0m"
           else
@@ -38,7 +38,7 @@ jobs:
         if: ${{ github.event.inputs.project == 'awsCypress-main2' }}
         run: |
           echo -e "\e[33m🟡 [INFO] Triggering workflow for awsCypress-main2...\e[0m"
-          gh workflow run cypress.yml --repo ${{ github.repository }} --ref main
+          gh workflow run cypress.yml --repo ${{ github.repository }} --ref main --inputs project=awsCypress-main2
           if [ $? -eq 0 ]; then
             echo -e "\e[32m✅ [SUCCESS] Successfully triggered awsCypress-main2 workflow!\e[0m"
           else
