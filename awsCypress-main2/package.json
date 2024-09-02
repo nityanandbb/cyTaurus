@@ -1,0 +1,21 @@
+{
+  "devDependencies": {
+    "allure-commandline": "^2.29.0",
+    "allure-cypress": "^2.14.0",
+    "cypress": "^12.17.4",
+    "cypress-mochawesome-reporter": "^3.8.2",
+    "mocha": "^10.0.0",
+    "mochawesome": "^7.0.0",
+    "mochawesome-merge": "^4.0.0",
+    "mochawesome-report-generator": "^4.0.0"
+  },
+  "engines": {
+    "node": ">=20.5.0",
+    "npm": ">=9.8.0"
+  },
+  "scripts": {
+    "test": "mocha 'cypress/e2e/**/*.cy.js' --reporter mochawesome",
+    "cypress:run": "cypress run",
+    "cypress:open": "cypress open"
+  }
+}
