@@ -47,4 +47,4 @@ jobs:
           fi
 
       - name: Log: End of Workflow
-        run: echo "🔵 [INFO] Workflow execution complete..."
+        run: echo "🔵 [INFO] Workflow execution complete."
