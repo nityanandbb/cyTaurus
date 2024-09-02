@@ -29,13 +29,28 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Log: Start of Workflow
+        id: start
         run: echo "Starting the workflow..."
 
       - name: Log: Selected Project
         run: echo "Selected project: ${{ github.event.inputs.project }}"
 
-      - name: Trigger Cypress Tests for awsCypress-main1
+      - name: Check if Input is 1
         if: ${{ github.event.inputs.project == '1' }}
+        run: |
+          echo "Input is 1, proceeding with awsCypress-main1..."
+          # You can set an output here if needed for further steps
+          echo "PROCEED=true" >> $GITHUB_ENV
+
+      - name: Check if Input is 2
+        if: ${{ github.event.inputs.project == '2' }}
+        run: |
+          echo "Input is 2, proceeding with awsCypress-main2..."
+          # You can set an output here if needed for further steps
+          echo "PROCEED=true" >> $GITHUB_ENV
+
+      - name: Trigger Cypress Tests for awsCypress-main1
+        if: ${{ env.PROCEED == 'true' && github.event.inputs.project == '1' }}
         run: |
           echo "Triggering workflow for awsCypress-main1..."
           gh workflow run cypress.yml --repo awsCypress-main1/${{ github.repository_owner }} --ref main
@@ -47,7 +62,7 @@ jobs:
           fi
 
       - name: Trigger Cypress Tests for awsCypress-main2
-        if: ${{ github.event.inputs.project == '2' }}
+        if: ${{ env.PROCEED == 'true' && github.event.inputs.project == '2' }}
         run: |
           echo "Triggering workflow for awsCypress-main2..."
           gh workflow run cypress.yml --repo awsCypress-main2/${{ github.repository_owner }} --ref main
